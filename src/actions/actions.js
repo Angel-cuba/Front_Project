@@ -6,7 +6,6 @@ export const fetchingData = () => async (dispatch) => {
     const data = await fetchData();
     console.log(data);
     dispatch({ type: ALL_DATA, payload: data });
-    // const data = await response.json();
   } catch (error) {
     console.log(error);
   }
