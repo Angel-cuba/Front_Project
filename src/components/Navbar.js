@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
 import { ThemeManager } from '../context/Context';
 import '../Styles/Components/Navbar.scss';
 import ThemeToggle from './ThemeToggle';
@@ -18,6 +19,10 @@ const Navbar = () => {
       <div className="emptyDiv"></div>
       <div className="navbar-buttons">
         <ThemeToggle />
+      </div>
+      <div className="navbar-cart">
+        <div className="counter">3</div>
+        <FaShoppingCart className="icon" />
       </div>
     </div>
   );

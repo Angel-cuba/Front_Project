@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Country from '../components/Country';
 import { Input } from '../components/Input';
 import { ThemeManager } from '../context/Context';
@@ -14,6 +14,9 @@ const Home = () => {
   const handleValue = (e) => {
     setValue(e.target.value);
   };
+  useEffect(() => {
+    console.log('Here again...');
+  }, [value]);
 
   return (
     <div className={theme === 'light' ? 'Principal' : 'Principal-Dark'}>

@@ -25,7 +25,9 @@ const Country = () => {
           {data?.map((country, index) => (
             <tr key={index} className="eachCountry">
               <td className="tFlag">
-                <Link to={`/country/${country.name.common}`}>{country.flag}</Link>
+                <Link style={{ textDecoration: 'none' }} to={`/country/${country.name.common}`}>
+                  {country.flag}
+                </Link>
               </td>
               <td className="tBodyContent">{country.name.common}</td>
               <td className="tBodyContent">

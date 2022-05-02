@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { fetchingDataById } from '../actions/actions';
 import { ThemeManager } from '../context/Context';
 
@@ -41,6 +41,9 @@ const CountryDetails = () => {
               <p>{data[0]?.continent}</p>
             </div>
           </div>
+          <Link className="btnBack" to="/">
+            Back
+          </Link>
         </div>
       ) : (
         <div className="container">Loading...</div>
