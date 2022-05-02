@@ -1,22 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchData } from './api/api';
+import { fetchingData } from './actions/actions';
 
-function App(props) {
-  console.log(props);
-  useSelector((state) => console.log(state));
+function App() {
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.reducers);
+  console.log('This data is from app', data);
   useEffect(() => {
     console.log('useEffect');
-    test();
-  }, []);
+    dispatch(fetchingData());
+  }, [dispatch]);
 
-  const test = () => {
-    fetchData()
-      .then((res) => res.json())
-      .then((data) => data);
-  };
   return (
     <div className="App">
       <header className="App-header">

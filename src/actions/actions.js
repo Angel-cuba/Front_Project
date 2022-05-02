@@ -3,7 +3,8 @@ import { ALL_DATA } from '../types/types';
 
 export const fetchingData = () => async (dispatch) => {
   try {
-    const { data } = await fetchData();
+    const data = await fetchData();
+    console.log(data);
     dispatch({ type: ALL_DATA, payload: data });
     // const data = await response.json();
   } catch (error) {
