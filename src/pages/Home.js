@@ -18,7 +18,6 @@ const Home = () => {
   return (
     <div className={theme === 'light' ? 'Principal' : 'Principal-Dark'}>
       <Input value={value} onChange={handleValue} />
-      <h1>Home page</h1>
       <div className="MainContent">
         <Country />
       </div>

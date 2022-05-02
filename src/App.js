@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { fetchingData } from './actions/actions';
 import { ThemeManager } from './context/Context';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import MyRoutes from './Routes/Router';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -18,7 +18,7 @@ function App() {
     <ThemeManager.Provider value={{ theme, setTheme }}>
       <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
         <Navbar />
-        <Home />
+        <MyRoutes />
       </div>
     </ThemeManager.Provider>
   );

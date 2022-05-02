@@ -4,5 +4,8 @@ export const fetchData = async () => {
   return data;
 };
 
-export const fetchDataById = async (id) =>
-  await fetch(`https://restcountries.com/v3.1/alpha/${id}`);
+export const fetchDataById = async (id) => {
+  const response = await fetch(`https://restcountries.com/v3.1/name/${id}`);
+  const data = await response.json();
+  return data;
+};
