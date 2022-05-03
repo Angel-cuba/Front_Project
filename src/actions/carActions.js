@@ -1,9 +1,10 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../types/types';
 
 export const addToCart = (item, items) => async (dispatch) => {
-  const itemToCart = items.filter((itemInCart) => itemInCart.index === item.id);
+  const addingToCart = items.filter((itemInCart) => itemInCart.index === item.id);
+
   try {
-    dispatch({ type: ADD_TO_CART, payload: itemToCart });
+    dispatch({ type: ADD_TO_CART, payload: addingToCart });
   } catch (error) {
     console.log(error);
   }

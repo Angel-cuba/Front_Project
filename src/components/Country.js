@@ -18,9 +18,6 @@ const Country = () => {
         data?.filter((c) => c.name.common === index)
       )
     );
-    console.log('data');
-
-    console.log();
   };
 
   return (
@@ -72,6 +69,7 @@ const Country = () => {
           ))}
         </tbody>
       </table>
+      {/* Car element */}
       <Car />
     </div>
   );

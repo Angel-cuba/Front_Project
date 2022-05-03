@@ -292,4 +292,17 @@
   top: 100px;
   right: 100px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  overflow-y: scroll;
+  th {
+    color: #5d0606;
+  }
+  td {
+    color: #9f0e0e;
+  }
+  .tBodyContentTrash {
+    color: rgb(251, 0, 0);
+    font-size: 2.5rem;
+    cursor: pointer;
+    text-align: center;
+  }
 }
