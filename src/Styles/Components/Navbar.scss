@@ -128,26 +128,6 @@
       }
     }
   }
-  .navbar-cart {
-    position: absolute;
-    top: 15%;
-    right: 2rem;
-    .counter {
-      color: rgb(0, 0, 0);
-      font-size: 1.5rem;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background-color: rgb(247, 74, 74);
-      display: flex;
-      justify-content: center;
-    }
-    .icon {
-      color: #fff;
-
-      font-size: 4rem;
-    }
-  }
 }
 //*******Dark Mode start here*********//
 .navbar-dark {
@@ -300,4 +280,16 @@
 }
 .common {
   transition: all 1s ease;
+}
+
+//Basket component
+.basket {
+  background-color: #0ec9e2;
+  width: min-content;
+  height: 60vh;
+  border-radius: 10px;
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
 }

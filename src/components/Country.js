@@ -1,12 +1,27 @@
 import React, { useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addToCart } from '../actions/carActions';
 import { ThemeManager } from '../context/Context';
 import '../Styles/Components/Small.scss';
+import Car from './Car';
 
 const Country = () => {
+  const dispatch = useDispatch();
   const { theme } = useContext(ThemeManager);
   const { data } = useSelector((state) => state.reducers);
+
+  const handleAdd = (index) => {
+    dispatch(
+      addToCart(
+        index,
+        data?.filter((c) => c.name.common === index)
+      )
+    );
+    console.log('data');
+
+    console.log();
+  };
 
   return (
     <div className="country">
@@ -49,12 +64,15 @@ const Country = () => {
               <td className="tBodyContent">{country.language}</td>
               <td className="tBodyContent">{country.population}</td>
               <td className="tBodyContent">
-                <button className="btn">Add</button>
+                <button className="btn" onClick={() => handleAdd(country.name.common)}>
+                  Add
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Car />
     </div>
   );
 };
