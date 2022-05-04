@@ -25,13 +25,7 @@ const Car = () => {
       <div className="counter">{cart.length > 0 ? cart.length : 0}</div>
       <FaShoppingCart className="icon" />
       {openBasket && (
-        <p>Cart</p>
-        // <BasketComponent
-        //   theme={theme}
-        //   stateInCar={cart}
-        //   openBasket={openBasket}
-        //   setOpenBasket={setOpenBasket}
-        // />
+        <Basket theme={theme} cart={cart} openBasket={openBasket} setOpenBasket={setOpenBasket} />
       )}
     </div>
   );
@@ -39,19 +33,19 @@ const Car = () => {
 
 export default Car;
 
-//Cart components
-const BasketComponent = ({ theme, stateInCar, setOpenBasket, openBasket }) => {
+//Basket components
+const Basket = ({ theme, cart, setOpenBasket }) => {
   const dispatch = useDispatch();
   const removeItem = (index) => {
     // const itemFromCart = items.filter((itemInCart) => itemInCart.id !== item.id);
-    dispatch(index, stateInCar);
+    dispatch(index, cart);
   };
   const handleBasket = () => {
     setOpenBasket(false);
   };
   return (
     <>
-      {stateInCar.length === 0 ? (
+      {cart.length === 0 ? (
         <div className="basket-empty">
           <h1>Your basket is empty</h1>
         </div>
@@ -70,20 +64,17 @@ const BasketComponent = ({ theme, stateInCar, setOpenBasket, openBasket }) => {
               </tr>
             </thead>
             <tbody>
-              {stateInCar?.map((country, index) => (
+              {cart.map((country, index) => (
                 <tr key={index} className="eachCountry">
                   <td className="tFlag">
-                    <Link
-                      style={{ textDecoration: 'none' }}
-                      to={`/country/${country[0].name.common}`}
-                    >
-                      {country[0].flag}
+                    <Link style={{ textDecoration: 'none' }} to={`/country/${country.name.common}`}>
+                      {country.flag}
                     </Link>
                   </td>
-                  <td className="tBodyContent">{country[0].name.common}</td>
+                  <td className="tBodyContent">{country.name.common}</td>
                   <td className="tBodyContent">
-                    {country[0].capital ? (
-                      country[0].capital
+                    {country.capital ? (
+                      country.capital
                     ) : (
                       <span
                         style={{
@@ -97,12 +88,9 @@ const BasketComponent = ({ theme, stateInCar, setOpenBasket, openBasket }) => {
                       </span>
                     )}
                   </td>
-                  <td className="tBodyContent">{country[0].language}</td>
-                  <td className="tBodyContent">{country[0].population}</td>
-                  <td
-                    className="tBodyContentTrash"
-                    onClick={() => removeItem(country[0].name.common)}
-                  >
+                  <td className="tBodyContent">{country.language}</td>
+                  <td className="tBodyContent">{country.population}</td>
+                  <td className="tBodyContentTrash" onClick={() => removeItem(country.name.common)}>
                     <FaTrashAlt />
                   </td>
                 </tr>

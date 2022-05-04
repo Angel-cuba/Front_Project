@@ -12,9 +12,6 @@ const Country = () => {
   const { theme } = useContext(ThemeManager);
   const { data } = useSelector((state) => state.reducers);
 
-  const { cart } = useSelector((state) => state.carReducers);
-  console.log('Here again ', cart);
-
   const handleAdd = (index) => {
     dispatch(
       addToCart(
