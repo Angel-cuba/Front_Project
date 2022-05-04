@@ -4,13 +4,22 @@ import { ADD_TO_CART, REMOVE_FROM_CART } from '../types/types';
 export default (state = { cart: [] }, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const newItems = [action.payload, ...state.cart];
+      const country = action.payload;
+
+      const isDuplicate = state.cart.some((cart) => cart.name.common === country.name.common);
+      if (isDuplicate) {
+        return state;
+      }
+      const newItems = [country, ...state.cart];
       return {
         ...state,
         cart: newItems,
       };
     case REMOVE_FROM_CART:
-      return { ...state, stateInCar: action.payload };
+      const { countryName } = action.payload;
+      const newCart = state.cart.filter((item) => item.name.common !== countryName);
+
+      return { ...state, cart: newCart };
     default:
       return state;
   }

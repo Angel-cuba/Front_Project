@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { FaShoppingCart, FaTrashAlt, FaWindowClose } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { removeFromCart } from '../actions/carActions';
 
 import { ThemeManager } from '../context/Context';
 
@@ -10,13 +11,6 @@ const Car = () => {
   const { theme } = useContext(ThemeManager);
 
   const { cart } = useSelector((state) => state.carReducers);
-  console.log('stateInCar', cart);
-  // useSelector((state) => console.log(state));
-
-  // console.log(stateInCar);
-
-  // console.log('Data from BasketComponent', cart);
-
   const handleBasket = () => {
     setOpenBasket(!openBasket);
   };
@@ -36,9 +30,8 @@ export default Car;
 //Basket components
 const Basket = ({ theme, cart, setOpenBasket }) => {
   const dispatch = useDispatch();
-  const removeItem = (index) => {
-    // const itemFromCart = items.filter((itemInCart) => itemInCart.id !== item.id);
-    dispatch(index, cart);
+  const removeItem = (name) => {
+    dispatch(removeFromCart(name));
   };
   const handleBasket = () => {
     setOpenBasket(false);

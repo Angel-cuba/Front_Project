@@ -12,13 +12,8 @@ const Country = () => {
   const { theme } = useContext(ThemeManager);
   const { data } = useSelector((state) => state.reducers);
 
-  const handleAdd = (index) => {
-    dispatch(
-      addToCart(
-        index,
-        data?.filter((c) => c.name.common === index)
-      )
-    );
+  const handleAdd = (country) => {
+    dispatch(addToCart(country));
   };
 
   return (
@@ -68,7 +63,7 @@ const Country = () => {
                 <FaRegThumbsUp
                   // className={favourites ? 'btnClicked' : 'btnClick'}
                   className="btnClicked"
-                  onClick={() => handleAdd(country.name.common)}
+                  onClick={() => handleAdd(country)}
                 />
               </td>
             </tr>

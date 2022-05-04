@@ -1,25 +1,16 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../types/types';
 
-export const addToCart = (item, items) => async (dispatch) => {
-  const newItem = items.find((itemInCart) => itemInCart.index === item.id);
-  console.log('new item', newItem);
+export const addToCart = (country) => async (dispatch) => {
   try {
-    dispatch({ type: ADD_TO_CART, payload: newItem });
+    dispatch({ type: ADD_TO_CART, payload: country });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const removeFromCart = (item, items) => async (dispatch) => {
-  // const itemFromCart = items.filter((itemInCart) => itemInCart.indexOf(item) !== item.id);
-  for (let i = 0; i < items.length; i++) {
-    if (items[i][0].name.common === item) {
-      items.splice(i, 1);
-    }
-  }
-
+export const removeFromCart = (countryName) => async (dispatch) => {
   try {
-    dispatch({ type: REMOVE_FROM_CART, payload: items });
+    dispatch({ type: REMOVE_FROM_CART, payload: { countryName } });
   } catch (error) {
     console.log(error);
   }
