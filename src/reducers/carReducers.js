@@ -1,12 +1,16 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../types/types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state = { stateInCar: [] }, action) => {
+export default (state = { cart: [] }, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      return { ...state, cart: state.stateInCar.push(action.payload) };
+      const newItems = [action.payload, ...state.cart];
+      return {
+        ...state,
+        cart: newItems,
+      };
     case REMOVE_FROM_CART:
-      return { ...state, cart: action.payload };
+      return { ...state, stateInCar: action.payload };
     default:
       return state;
   }
