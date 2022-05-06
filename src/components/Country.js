@@ -1,19 +1,28 @@
 import React, { useContext } from 'react';
-import { FaRegThumbsUp } from 'react-icons/fa';
+import { FaRegThumbsUp, FaRegThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToCart } from '../actions/carActions';
+import { addToCart, removeFromCart } from '../actions/carActions';
 import { ThemeManager } from '../context/Context';
 import '../Styles/Components/Small.scss';
 import Car from './Car';
 
 const Country = () => {
   const dispatch = useDispatch();
+  //Checking for theme
   const { theme } = useContext(ThemeManager);
-  const { data } = useSelector((state) => state.reducers);
 
+  //Getting the data from the storefind
+  const { data } = useSelector((state) => state.reducers);
+  const { cart } = useSelector((state) => state.carReducers);
+
+  //Handlers for remove and add items
   const handleAdd = (country) => {
     dispatch(addToCart(country));
+  };
+
+  const handleRemove = (name) => {
+    dispatch(removeFromCart(name));
   };
 
   return (
@@ -57,20 +66,19 @@ const Country = () => {
               <td className="tBodyContent">{country.language}</td>
               <td className="tBodyContent">{country.population}</td>
               <td className="tBodyContent">
-                {/* <button className="btn" onClick={() => handleAdd(country.name.common)}>
-                  Add
-                </button> */}
-                <FaRegThumbsUp
-                  // className={favourites ? 'btnClicked' : 'btnClick'}
-                  className="btnClicked"
-                  onClick={() => handleAdd(country)}
-                />
+                {cart.includes(country) ? (
+                  <FaThumbsUp
+                    className="btnClick"
+                    onClick={() => handleRemove(country.name.common)}
+                  />
+                ) : (
+                  <FaRegThumbsUp className="btnClicked" onClick={() => handleAdd(country)} />
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {/* Car element */}
       <Car />
     </div>
   );
