@@ -14,9 +14,13 @@ const Country = () => {
   const [sortData, setSortData] = useState(null);
   const [sortAscending, setSortAscending] = useState(null);
   const [sortDescending, setSortDescending] = useState(null);
+  const [initial, setInitial] = useState(null);
 
-  console.log('Ascending', sortAscending);
-  console.log('Descending', sortDescending);
+  console.log('Initial again', initial);
+
+  // console.log('Ascending', sortAscending);
+  // console.log('Descending', sortDescending);
+
   //Getting the data from the storefind
   const { data } = useSelector((state) => state.reducers);
   const { cart } = useSelector((state) => state.carReducers);
@@ -92,30 +96,31 @@ const Country = () => {
     setSortData(null);
     setSortAscending(null);
     setSortDescending(null);
+    setInitial(data);
   };
   return (
     <>
       <div className="buttonContainer">
         <button
-          style={{ padding: 10, backgroundColor: 'black', color: 'white', fontSize: 33 }}
+          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
           onClick={() => refreshData()}
         >
           Back
         </button>
         <button
-          style={{ padding: 10, backgroundColor: 'black', color: 'white', fontSize: 33 }}
+          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
           onClick={() => sortByName()}
         >
           Sort By Name
         </button>
         <button
-          style={{ padding: 10, backgroundColor: 'black', color: 'white', fontSize: 33 }}
+          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
           onClick={() => sortByPopulationDescending()}
         >
           Sort By Population (descending)
         </button>
         <button
-          style={{ padding: 10, backgroundColor: 'black', color: 'white', fontSize: 33 }}
+          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
           onClick={() => sortByPopulationAscending()}
         >
           Sorting By Population (ascending)
@@ -134,6 +139,44 @@ const Country = () => {
             </tr>
           </thead>
           <tbody>
+            {data?.map((country, index) => (
+              <tr key={index} className="eachCountry">
+                <td className="tFlag">
+                  <Link style={{ textDecoration: 'none' }} to={`/country/${country.name.common}`}>
+                    {country.flag}
+                  </Link>
+                </td>
+                <td className="tBodyContent">{country.name.common}</td>
+                <td className="tBodyContent">
+                  {country.capital ? (
+                    country.capital
+                  ) : (
+                    <span
+                      style={{
+                        color: 'red',
+                        border: '1px solid red',
+                        padding: '5px 10px',
+                        borderRadius: '5px',
+                      }}
+                    >
+                      Unknown
+                    </span>
+                  )}
+                </td>
+                <td className="tBodyContent">{country.language}</td>
+                <td className="tBodyContent">{country.population}</td>
+                <td className="tBodyContent">
+                  {cart.includes(country) ? (
+                    <FaThumbsUp
+                      className="btnClick"
+                      onClick={() => handleRemove(country.name.common)}
+                    />
+                  ) : (
+                    <FaRegThumbsUp className="btnClicked" onClick={() => handleAdd(country)} />
+                  )}
+                </td>
+              </tr>
+            ))}
             {sortData
               ? sortData.map((country, index) => (
                   <tr key={index} className="eachCountry">
@@ -383,47 +426,6 @@ const Country = () => {
                     </td>
                   </tr>
                 ))}
-            {!sortData &&
-              !sortAscending &&
-              !sortDescending &&
-              data?.map((country, index) => (
-                <tr key={index} className="eachCountry">
-                  <td className="tFlag">
-                    <Link style={{ textDecoration: 'none' }} to={`/country/${country.name.common}`}>
-                      {country.flag}
-                    </Link>
-                  </td>
-                  <td className="tBodyContent">{country.name.common}</td>
-                  <td className="tBodyContent">
-                    {country.capital ? (
-                      country.capital
-                    ) : (
-                      <span
-                        style={{
-                          color: 'red',
-                          border: '1px solid red',
-                          padding: '5px 10px',
-                          borderRadius: '5px',
-                        }}
-                      >
-                        Unknown
-                      </span>
-                    )}
-                  </td>
-                  <td className="tBodyContent">{country.language}</td>
-                  <td className="tBodyContent">{country.population}</td>
-                  <td className="tBodyContent">
-                    {cart.includes(country) ? (
-                      <FaThumbsUp
-                        className="btnClick"
-                        onClick={() => handleRemove(country.name.common)}
-                      />
-                    ) : (
-                      <FaRegThumbsUp className="btnClicked" onClick={() => handleAdd(country)} />
-                    )}
-                  </td>
-                </tr>
-              ))}
           </tbody>
         </table>
         <Car />
