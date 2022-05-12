@@ -18,9 +18,13 @@ const Car = () => {
     <div className="navbar-cart" onClick={handleBasket}>
       <div className="counter">{cart.length > 0 ? cart.length : 0}</div>
       <FaShoppingCart className="icon" />
-      {openBasket && (
+      <div className="">
+
+          {openBasket && 
         <Basket theme={theme} cart={cart} openBasket={openBasket} setOpenBasket={setOpenBasket} />
-      )}
+      }
+      </div>
+    
     </div>
   );
 };

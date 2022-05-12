@@ -13,8 +13,6 @@ const Country = () => {
   //Checking for theme
   const { theme } = useContext(ThemeManager);
   const [sortData, setSortData] = useState(null);
-  // const [sortAscending, setSortAscending] = useState(null);
-  // const [sortDescending, setSortDescending] = useState(null);
   const [value, setValue] = useState('');
 
   const handleValue = (e) => {
@@ -41,7 +39,7 @@ const Country = () => {
   };
 
   //Sorting by name and  by population
-  const sortByName = () => {
+  const sortAscByName = () => {
     const sorted = data.sort((a, b) => {
       let nameA = a.name.common.toLowerCase();
       let nameB = b.name.common.toLowerCase();
@@ -55,6 +53,21 @@ const Country = () => {
     });
     setSortData([...sorted]);
   };
+  
+  const sortDescByName = () => {
+    const sorted = data.sort((a, b) => {
+      let nameA = a.name.common.toLowerCase()
+      let nameB = b.name.common.toLowerCase()
+      if (nameA < nameB) {
+        return 1
+      }
+      if (a.name.common > b.name.common) {
+        return -1
+      }
+      return 0
+    })
+    setSortData([...sorted])
+  }
   //By population size
   const sortByPopulationAscending = () => {
     const sorted = data.sort((a, b) => {
@@ -84,6 +97,27 @@ const Country = () => {
     });
     setSortData([...sorted]);
   };
+
+  // (country.map((arr, i) => <li key={i}>{arr}</li>))
+
+ const handleLanguages = (country ) => {
+
+  if (country.length > 3) {
+    return (
+      <>
+        {country.splice(0,3).map((c) => {
+          return (
+            <li style={{textAlign: 'left', marginLeft: '36%'}} key={c}>{c}</li>
+          )
+        }) } 
+        <strong>and {country.length} more...</strong>
+      </>
+    )
+  }
+  return country.map((language) => {
+    return <li key={language}>{language}</li> 
+  })
+}
   
   const CountryData = (country, index) => {
     return (
@@ -110,7 +144,7 @@ const Country = () => {
                     </span>
                   )}
                 </td>
-                <td className="tBodyContent">{country.language}</td>
+                <td className="tBodyContent">{country.languages && handleLanguages(Object.values(country.languages))}</td>
                 <td className="tBodyContent">{country.population}</td>
                 <td className="tBodyContent">
                   {cart.some(c => c.name.common === country.name.common) ? (
@@ -128,34 +162,55 @@ const Country = () => {
   const handleData = (countries) => {
     return countries?.map((country, index) => CountryData(country, index))
   }
+
+    const handleSort = (sortBy) => {
+    if (sortBy === 'name-asc') {
+      sortAscByName()
+    }
+    if (sortBy === 'name-desc') {
+      sortDescByName()
+    }
+    if (sortBy === 'pop-asc') {
+      sortByPopulationAscending()
+    }
+    if (sortBy === 'pop-desc') {
+      sortByPopulationDescending()
+    }
+  }
+    const sortingButtons = [
+    {
+      id: 0,
+      label: 'Ascending by Name',
+      action: () => handleSort('name-asc'),
+    },
+    {
+      id: 1,
+      label: 'Descending by Name',
+      action: () => handleSort('name-desc'),
+    },
+    { 
+      id: 2, 
+      label: 'Sorting Asc', 
+      action: () => handleSort('pop-asc') },
+    {
+      id: 3,
+      label: 'Sorting Desc',
+      action: () => handleSort('pop-desc'),
+    },
+  ]
   return (
     <>
       <Input value={value} onChange={handleValue} />
       <div className="buttonContainer">
-        {/* <button
-          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
-          onClick={() => refreshData()}
-        >
-          Back
-        </button> */}
-        <button
-          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
-          onClick={() => sortByName()}
-        >
-          Sort By Name
-        </button>
-        <button
-          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
-          onClick={() => sortByPopulationDescending()}
-        >
-          Sort By Population (descending)
-        </button>
-        <button
-          className={theme === 'light' ? 'btn-light' : 'btn-dark'}
-          onClick={() => sortByPopulationAscending()}
-        >
-          Sorting By Population (ascending)
-        </button>
+        {sortingButtons.map((button, index) => (
+          <button
+            key={index}
+            className={theme === 'light' ? 'btn-light' : 'btn-dark'}
+            onClick={() => button.action()}
+          >
+            {button.label}
+          </button>
+        ))}
       </div>
 
       <div className="country">
