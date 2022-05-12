@@ -5,8 +5,8 @@ import Home from '../pages/Home';
 
 const MyRoutes = () => (
   <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="" element={<Home />} />
+    <Route path="" element={<Home />} exact/>
+    {/* <Route path="" element={<Home />} /> */}
     <Route path="/country/:id" element={<CountryDetails />} />
   </Routes>
 );
