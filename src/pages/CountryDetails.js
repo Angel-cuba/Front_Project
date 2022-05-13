@@ -4,8 +4,11 @@ import { Link, useParams } from 'react-router-dom';
 import { fetchingDataById } from '../actions/actions';
 import { handleLanguages } from '../components/utils/helpers';
 import { ThemeManager } from '../context/Context';
+import { FaRegThumbsDown, FaRegThumbsUp, FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
+
 
 import '../Styles/Pages/CountryDetails.scss';
+import { addToCart, removeFromCart } from '../actions/carActions';
 
 const CountryDetails = () => {
   const { id } = useParams();
@@ -13,17 +16,30 @@ const CountryDetails = () => {
   const { theme } = useContext(ThemeManager);
 
   const { data } = useSelector((state) => state.reducers);
+ const {cart} = useSelector(state => state.carReducers);
   useEffect(() => {
     dispatch(fetchingDataById(id));
   }, [dispatch, id]);
-  console.log(data)
+  console.log(cart)
+
+
+//Handlers for remove and add countries
+  const handleAdd = (country) => {
+    dispatch(addToCart(country));
+  }
+  const handleRemove = (countryName) => {
+    dispatch(removeFromCart(countryName));
+  }
+  const countryExists = (countryName) => {
+  return cart.some((country) => country.name.common === countryName);
+  }
 
   return (
     <>
       {data ? (
         <div className="container">
           <div className={theme === 'light' ? 'card' : 'card-dark'}>
-    <div class={{width:'100%', height:'150px',display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+    <div className={{width:'100%', height:'150px',display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
 
         <p className="title">{data[0]?.name.common}</p>
             <img style={{ width: '130px', height: '130px' }} src={data[0]?.coatOfArms.png} alt="" />
@@ -42,6 +58,11 @@ const CountryDetails = () => {
               
               <p>Continent: <span>{data[0]?.continents}</span></p>
               
+            </div>
+            <div className="card-buttons">
+              
+              {!countryExists(data[0].name.common) ? <FaRegThumbsUp className="btnClickUp" onClick={() => handleAdd(data[0])}/>: <FaThumbsUp className="btnClickUp" onClick={() =>console.log('first')}/>}
+              {countryExists(data[0].name.common) ? <FaRegThumbsDown className="btnClickDown" onClick={() => handleRemove(data[0].name.common)}/>: <FaThumbsDown className="btnClickDown" onClick={() =>console.log('second')}/>}
             </div>
           </div>
           <Link className="btnBack" to="/">

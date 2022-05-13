@@ -1,10 +1,15 @@
+import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 import { addToCart, removeFromCart } from "../../actions/carActions";
 
 
-  export const CountryData = ({country, index}) => {
+ export const HandleData = (countries) => {
+    return countries?.map((country, index) => HandleRenderRow(country, index))
+  }
+
+ const HandleRenderRow = ({country, index}) => {
   const { cart } = useSelector((state) => state.carReducers);
   const dispatch = useDispatch();
 

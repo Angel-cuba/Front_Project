@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ThemeManager } from '../context/Context';
 import '../Styles/Components/Navbar.scss';
+import Car from './Car';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
@@ -19,6 +20,7 @@ const Navbar = () => {
       <div className="navbar-buttons">
         <ThemeToggle />
       </div>
+        <Car />
     </div>
   );
 };

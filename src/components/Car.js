@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { removeFromCart } from '../actions/carActions';
 
 import { ThemeManager } from '../context/Context';
+import '../Styles/Components/Navbar.scss';
+
 
 const Car = () => {
   const [openBasket, setOpenBasket] = useState(false);
@@ -15,17 +17,14 @@ const Car = () => {
     setOpenBasket(!openBasket);
   };
   return (
-    <div className="navbar-cart" onClick={handleBasket}>
+    <div className="navbar-cart">
       <div className="counter">{cart.length > 0 ? cart.length : 0}</div>
-      <FaShoppingCart className="icon" />
-      <div className="">
-
-          {openBasket && 
-        <Basket theme={theme} cart={cart} openBasket={openBasket} setOpenBasket={setOpenBasket} />
+      <FaShoppingCart className="icon"  onClick={handleBasket} />
+          {
+          openBasket && 
+        <Basket theme={theme} cart={cart} setOpenBasket={setOpenBasket} />
       }
       </div>
-    
-    </div>
   );
 };
 

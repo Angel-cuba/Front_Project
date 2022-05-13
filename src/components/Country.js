@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart } from '../actions/carActions';
 import { ThemeManager } from '../context/Context';
 import '../Styles/Components/Small.scss';
-import Car from './Car';
 import { Input } from '../components/Input';
+import { HandleData } from './utils/helpers';
 
 const Country = () => {
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ const Country = () => {
     setSortData([...sorted]);
   };
 
-  // (country.map((arr, i) => <li key={i}>{arr}</li>))
+ 
   
   const CountryData = (country, index) => {
     return (
@@ -212,7 +212,6 @@ const Country = () => {
             }
           </tbody>
         </table>
-        <Car />
       </div>
     </>
   );
