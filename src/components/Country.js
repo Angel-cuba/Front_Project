@@ -25,8 +25,8 @@ const Country = () => {
 
   //Searching the data by name
 
-  const filteredData = data?.filter((item) =>
-    item.name.common.toLowerCase().includes(value.toLowerCase())
+  const filteredData = data?.filter((country) =>
+    country.name.common.toLowerCase().includes(value.toLowerCase())
   );
 
   //Handlers for remove and add items
@@ -99,25 +99,6 @@ const Country = () => {
   };
 
   // (country.map((arr, i) => <li key={i}>{arr}</li>))
-
- const handleLanguages = (country ) => {
-
-  if (country.length > 3) {
-    return (
-      <>
-        {country.splice(0,3).map((c) => {
-          return (
-            <li style={{textAlign: 'left', marginLeft: '36%'}} key={c}>{c}</li>
-          )
-        }) } 
-        <strong>and {country.length} more...</strong>
-      </>
-    )
-  }
-  return country.map((language) => {
-    return <li key={language}>{language}</li> 
-  })
-}
   
   const CountryData = (country, index) => {
     return (
@@ -144,7 +125,7 @@ const Country = () => {
                     </span>
                   )}
                 </td>
-                <td className="tBodyContent">{country.languages && handleLanguages(Object.values(country.languages))}</td>
+                <td className="tBodyContent">{country.continents}</td>
                 <td className="tBodyContent">{country.population}</td>
                 <td className="tBodyContent">
                   {cart.some(c => c.name.common === country.name.common) ? (
@@ -217,10 +198,10 @@ const Country = () => {
         <table className={theme === 'light' ? 'table-light' : 'table-dark'}>
           <thead>
             <tr>
-              <th></th>
+              <th className="tHead">Flag</th>
               <th className="tHead">Country</th>
               <th className="tHead">Capital</th>
-              <th className="tHead">Language</th>
+              <th className="tHead">Continents</th>
               <th className="tHead">Population</th>
               <th className="tHead"></th>
             </tr>

@@ -15,12 +15,17 @@
       font-size: 5rem;
       font-weight: bold;
     }
-    h1 {
-      font-size: 3rem;
+    span {
+      font-size: 1.3rem;
       font-weight: bold;
+      margin-left: 1rem;
+    }
+    .span-languages{
+      text-align: center;
     }
     p {
       font-size: 2rem;
+      text-align: left;
     }
     .card-head {
       display: flex;
